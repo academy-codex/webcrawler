@@ -8,10 +8,6 @@ def create_new_dir(directory):
         print('creating project ' + directory)
         os.makedirs(directory)
 
-
-create_new_dir("Quotes_to_scrape")
-
-
 # CREATE QUEUE AND CRAWLED FILES
 
 def create_data_files(project_name, base_url):
@@ -33,9 +29,6 @@ def write_file(path, data):
     f.close()
 
 
-create_data_files("Quotes_to_scrape", "http://quotes.toscrape.com/")
-
-
 # APPEND TO FILE
 
 def append_to_file(path, data):
@@ -54,7 +47,7 @@ def delete_file_contents(path):
 
 def file_to_set(file_name):
     results = set()
-    with open(file_name, 'rt') as f:
+    with open(file_name, 'r+') as f:
         for line in f:
             results.add(line.replace('\n', ''))
 
@@ -63,8 +56,8 @@ def file_to_set(file_name):
 
 # ITERATE THROUGH A SET
 
-def set_to_file(links, file):
-    delete_file_contents(file)
+def set_to_file(links, file_name):
+    delete_file_contents(file_name)
 
     for link in links:
-        append_to_file(file,link)
+        append_to_file(file_name, link)

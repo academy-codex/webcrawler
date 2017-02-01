@@ -1,4 +1,4 @@
-from urllib2 import urlopen
+from urllib.request import urlopen
 from link_finder import LinkFinder
 from general import *
 
@@ -20,15 +20,15 @@ class Spider:
         Spider.domain_name = domain_name
 
         Spider.queue_file = project_name + '/queue.txt'
-        Spider.queue_file = project_name + '/crawled.txt'
+        Spider.crawled_file = project_name + '/crawled.txt'
 
         self.boot()
-        self.crawl_page('First Spider',Spider.base_url)
+        self.crawl_page('First Spider', Spider.base_url)
 
     @staticmethod
     def boot():
         create_new_dir(Spider.project_name)
-        create_data_files(Spider.project_name,Spider.base_url)
+        create_data_files(Spider.project_name, Spider.base_url)
         Spider.queue = file_to_set(Spider.queue_file)
         Spider.crawled = file_to_set(Spider.crawled_file)
 
@@ -48,14 +48,14 @@ class Spider:
 
         try:
             response = urlopen(page_url)
-            if response.getheader('Content-Type') == 'text/html':
+            if 'text/html' in response.getheader('Content-Type'):
                 html_bytes = response.read()
                 html_string = html_bytes.decode('utf-8')
 
-            finder = LinkFinder(Spider.base_url,page_url)
+            finder = LinkFinder(Spider.base_url, page_url)
             finder.feed(html_string)
-        except:
-            print ('Error has occoured. Cannot crawl page.')
+        except Exception as e:
+            print (str(e))
             return set()
 
         return finder.page_links()

@@ -1,4 +1,4 @@
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 
 # GET SUBDOMAIN NAME (name.example.com)
@@ -18,6 +18,3 @@ def get_domain_name(url):
         return results[-2] + '.' + results[-1]
     except:
         return ''
-
-
-print get_domain_name('https://www.hackerearth.com/sprints/ibmkone-hack/dashboard/AlphaQ/idea/')

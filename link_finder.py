@@ -1,5 +1,5 @@
-from HTMLParser import HTMLParser
-from urlparse import urljoin
+from html.parser import HTMLParser
+from urllib import parse
 
 
 class LinkFinder(HTMLParser):
@@ -17,7 +17,7 @@ class LinkFinder(HTMLParser):
     def handle_starttag(self, tag, attrs):
         for (attribute, value) in attrs:
             if attribute == 'href':
-                url = urljoin(self.base_url, value)
+                url = parse.urljoin(self.base_url, value)
                 self.links.add(url)
 
     def page_links(self):

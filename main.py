@@ -44,7 +44,7 @@ def create_jobs():
     crawl()
 
 
-# CHECK IF THERE ARE ITEMS IN THE QUEUE AND CRAWL THEM
+# Check if there are items in the queue and crawl them
 
 def crawl():
     queued_links = file_to_set(QUEUE_FILE)
